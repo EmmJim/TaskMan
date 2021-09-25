@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+    head
+        include partials/header
+    body.login 
+        .contenedor-formulario 
+            h1
+                | Iniciar Sesión en 
+                span TaskMan
+
+            if locals.mensajes 
+                .alertas 
+                    each categoria in Object.keys(locals.mensajes)
+                        each error in mensajes[categoria]
+                            .alerta(class=`${categoria}`)
+                                p= error
+            
+            form#formulario.caja.caja-login(method="POST" action="/iniciar-sesion")
+                .campo.form-group 
+                    label(for="email") Email: 
+                    input(type="email" value= email name="email" placeholder="Tu Email" class="form-control")
+                .campo.form-group
+                    label(for="password") Password: 
+                    input(type="password" value= password name="password" placeholder="Tu Password" class="form-control")
+                .campo.enviar 
+                    input(type="submit" value="Iniciar Sesion" class="boton")
+                .campo.acciones 
+                    a(href="/crear-cuenta") ¿Aún no tienes cuenta? Crea una gratis 
+                    a(href="/reestablecer") ¿Olvidaste tu Contraseña?
